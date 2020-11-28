@@ -226,7 +226,8 @@ class MoVieMcan(BaseModel):
             feature = sample_list.image
 
             feature_encoder = getattr(self, attr + "_feature_encoders")
-            encoded_feature = feature_encoder(feature, text_embedding_vec)
+            with torch.no_grad():
+                encoded_feature = feature_encoder(feature)
         else:
             feature = sample_list.image_feature_0
 

@@ -92,6 +92,14 @@ class FeaturesDatabase(ImageDatabase):
 
     def get(self, item):
         feature_path = item.get(self.feature_key, None)
+        if "genome" in feature_path and feature_path.endswith(".pth"):
+            feature_path = item.get("image_name", None)
+            feature_path = (
+                feature_path.split("/")[1]
+                + "/"
+                + str(int(feature_path.split("/")[2].split("_")[-1]))
+                + ".pth"
+            )
 
         if feature_path is None:
             feature_path = self._get_feature_path_based_on_image(item)

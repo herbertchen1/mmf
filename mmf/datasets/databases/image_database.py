@@ -134,6 +134,8 @@ class ImageDatabase(torch.utils.data.Dataset):
 
         loaded_images = []
         for image in paths:
+            if "visualgenome" in image:
+                image = image.split("/")[1] + "/" + image.split("/")[2]
             image = os.path.join(self.base_path, image)
             path = get_possible_image_paths(image)
 
